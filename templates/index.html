@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body
+    style="background-image: url('{{ url_for('static', filename='images/sky.jpg') }}'); background-size: cover; background-position: center;"
+  >
+    <div class="container">
+      <h1>⛅ Weather</h1>
+
+      <form method="POST">
+        <input type="text" name="city" placeholder="Enter City" required />
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="weather-card">
+        {% if weather %}
+        <img
+          src="{{ url_for('static', filename='images/' ~ weather.icon) }}"
+          alt="{{ weather.description }}"
+          width="50"
+          height="50"
+        />
+        <h2>{{ weather.city }}</h2>
+         <div id="liveClock" data-timezone="{{ weather.timezone }}"></div>
+        <h3>{{ weather.temp }}°C</h3>
+        <p>{{ weather.description }}</p>
+        <p>Humidity: {{ weather.humidity }}%</p>
+        {% endif %}
+      </div>
+
+      <button onclick="toggleMode()">🌙 Dark Mode</button>
+    </div>
+
+      <script src="{{ url_for('static', filename='script.js') }}">
+      </script>
+    </div>
+  </body>
+</html>
